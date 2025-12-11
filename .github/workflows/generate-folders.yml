@@ -1,86 +1,77 @@
-name: Generate folders.json (with meta descriptions)
+name: Generate folder list JSON
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
-  generate:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Generate data/folders.json (extract meta.json descriptions)
-        # using python for robust JSON handling and trimming
+      - name: Generate folder listing JSON
         run: |
-          set -euo pipefail
-          python3 - <<'PY'
-import os, json, re
+          python3 <<'EOF'
+          import os, json, re
 
-root = os.getcwd()
-out = []
-skip_dirs = {'.github', 'data', '.git', '__pycache__'}
+          root = os.getcwd()
+          out = []
+          skip_dirs = {'.github', 'data', '.git'}
 
-def safe_read_json(path):
-    try:
-        with open(path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception:
-        return None
+          def safe_read_json(path):
+            try:
+              with open(path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+            except:
+              return None
 
-# Optional: if you want to only include folders that match "Day <number>", set this to True
-ONLY_DAY_FOLDERS = False
-DAY_RE = re.compile(r'day\s*\d+', re.I)
+          for entry in sorted(os.listdir(root)):
+            entry_path = os.path.join(root, entry)
+            if not os.path.isdir(entry_path):
+              continue
+            if entry in skip_dirs:
+              continue
 
-for entry in sorted(os.listdir(root)):
-    entry_path = os.path.join(root, entry)
-    if not os.path.isdir(entry_path):
-        continue
-    if entry in skip_dirs:
-        continue
-    if ONLY_DAY_FOLDERS and not DAY_RE.search(entry):
-        continue
+            index_path = os.path.join(entry_path, 'index.html')
+            has_index = os.path.isfile(index_path)
 
-    index_path = os.path.join(entry_path, 'index.html')
-    has_index = os.path.isfile(index_path)
+            meta_path = os.path.join(entry_path, 'meta.json')
+            meta = safe_read_json(meta_path)
 
-    meta_path = os.path.join(entry_path, 'meta.json')
-    meta = safe_read_json(meta_path)
-    description = ''
-    if isinstance(meta, dict):
-        # grab description field, fallback to empty
-        desc = meta.get('description') or meta.get('desc') or meta.get('short') or ''
-        if isinstance(desc, str):
-            # sanitize: collapse whitespace & trim
-            desc = re.sub(r'\s+', ' ', desc).strip()
-            # optional: limit to 200 characters
-            if len(desc) > 200:
-                desc = desc[:197].rstrip() + '...'
-            description = desc
+            description = ""
+            if isinstance(meta, dict):
+              desc = meta.get("description") or meta.get("desc") or meta.get("short") or ""
+              if isinstance(desc, str):
+                desc = re.sub(r"\s+", " ", desc).strip()
+                if len(desc) > 200:
+                  desc = desc[:197] + "..."
+                description = desc
 
-    out.append({
-        "name": entry,
-        "path": entry,
-        "index": bool(has_index),
-        "description": description
-    })
+            out.append({
+              "name": entry,
+              "path": entry,
+              "index": has_index,
+              "description": description
+            })
 
-# ensure data dir exists
-os.makedirs('data', exist_ok=True)
-with open('data/folders.json', 'w', encoding='utf-8') as f:
-    json.dump(out, f, ensure_ascii=False, indent=2)
-print(f"Wrote data/folders.json with {len(out)} entries")
-PY
+          os.makedirs("data", exist_ok=True)
+          with open("data/folders.json", "w", encoding="utf-8") as f:
+            json.dump(out, f, ensure_ascii=False, indent=2)
 
-      - name: Commit data/folders.json
+          print("Generated data/folders.json with", len(out), "entries")
+          EOF
+
+      - name: Commit JSON
         uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: update data/folders.json (with meta descriptions)"
           add: "data/folders.json"
+          message: "Update folder listing JSON"
