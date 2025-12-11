@@ -1,49 +1,86 @@
-name: Generate folders.json for webDandD
+name: Generate folders.json (with meta descriptions)
 
 on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Node (for JSON formatting)
-        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          fetch-depth: 0
 
-      - name: Generate folders JSON
+      - name: Generate data/folders.json (extract meta.json descriptions)
+        # using python for robust JSON handling and trimming
         run: |
-          mkdir -p data
-          echo "Scanning folders..."
+          set -euo pipefail
           python3 - <<'PY'
-import os, json
+import os, json, re
+
 root = os.getcwd()
-items = []
-for name in sorted(os.listdir(root)):
-    path = os.path.join(root, name)
-    if not os.path.isdir(path): 
+out = []
+skip_dirs = {'.github', 'data', '.git', '__pycache__'}
+
+def safe_read_json(path):
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+# Optional: if you want to only include folders that match "Day <number>", set this to True
+ONLY_DAY_FOLDERS = False
+DAY_RE = re.compile(r'day\s*\d+', re.I)
+
+for entry in sorted(os.listdir(root)):
+    entry_path = os.path.join(root, entry)
+    if not os.path.isdir(entry_path):
         continue
-    # skip workflow and data folders
-    if name.startswith('.git') or name == '.github' or name == 'data':
+    if entry in skip_dirs:
         continue
-    # treat only Day* folders OR include all folders - we include all directories but you can filter
-    # if you want only Day-named folders uncomment next lines:
-    # import re
-    # if not re.search(r'day\s*\d+', name, re.I): continue
-    index_html = os.path.isfile(os.path.join(path, 'index.html'))
-    items.append({"name": name, "path": name, "index": index_html})
+    if ONLY_DAY_FOLDERS and not DAY_RE.search(entry):
+        continue
+
+    index_path = os.path.join(entry_path, 'index.html')
+    has_index = os.path.isfile(index_path)
+
+    meta_path = os.path.join(entry_path, 'meta.json')
+    meta = safe_read_json(meta_path)
+    description = ''
+    if isinstance(meta, dict):
+        # grab description field, fallback to empty
+        desc = meta.get('description') or meta.get('desc') or meta.get('short') or ''
+        if isinstance(desc, str):
+            # sanitize: collapse whitespace & trim
+            desc = re.sub(r'\s+', ' ', desc).strip()
+            # optional: limit to 200 characters
+            if len(desc) > 200:
+                desc = desc[:197].rstrip() + '...'
+            description = desc
+
+    out.append({
+        "name": entry,
+        "path": entry,
+        "index": bool(has_index),
+        "description": description
+    })
+
+# ensure data dir exists
+os.makedirs('data', exist_ok=True)
 with open('data/folders.json', 'w', encoding='utf-8') as f:
-    json.dump(items, f, ensure_ascii=False, indent=2)
-print("Wrote data/folders.json with %d entries" % len(items))
+    json.dump(out, f, ensure_ascii=False, indent=2)
+print(f"Wrote data/folders.json with {len(out)} entries")
 PY
 
       - name: Commit data/folders.json
         uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: update data/folders.json"
+          message: "chore: update data/folders.json (with meta descriptions)"
           add: "data/folders.json"
