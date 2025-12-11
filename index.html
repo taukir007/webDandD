@@ -1,121 +1,247 @@
 <!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>webDandD — Daily HTML/CSS Progress</title>
+<title>webDandD — Daily Web Development Progress</title>
+<link rel="icon" href="data:," />
 <style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;padding:24px;background:#f7fafc}
-  h1{margin:0 0 16px}
-  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-  .card{background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-  .card button{margin-top:8px}
-  iframe{width:100%;height:80vh;border:1px solid #ddd;border-radius:6px}
-  .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-  .notice{color:#555;font-size:0.95rem}
-  a.small{font-size:0.9rem;color:#0366d6}
+  :root{
+    --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff; --glass: rgba(255,255,255,0.04);
+    --radius:12px; --gap:16px; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(1000px 400px at 10% 10%, rgba(124,92,255,0.12), transparent 6%),
+      radial-gradient(800px 300px at 95% 90%, rgba(71,99,255,0.06), transparent 10%),
+      var(--bg);
+    color:#e6eef8; padding:28px;
+  }
+  header{display:flex;gap:18px;align-items:center;margin-bottom:22px}
+  h1{margin:0;font-size:1.35rem;letter-spacing:-0.02em}
+  p.lead{margin:0;color:var(--muted);font-size:0.95rem}
+  .topbar{margin-left:auto;display:flex;gap:8px;align-items:center}
+  input.search{background:var(--card);color:inherit;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:999px;min-width:220px}
+  .controls button{background:linear-gradient(90deg,var(--accent),#5aa1ff);border:none;padding:10px 14px;border-radius:10px;color:white;font-weight:600;cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--gap);margin-top:18px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 20px rgba(2,6,23,0.6);display:flex;flex-direction:column;gap:8px}
+  .title{font-weight:700;font-size:1rem}
+  .meta{font-size:0.85rem;color:var(--muted)}
+  .buttons{margin-top:auto;display:flex;gap:8px}
+  .btn{flex:1;padding:8px 10px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+  .btn.preview{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dff;box-shadow:inset 0 -2px 6px rgba(0,0,0,0.2)}
+  .btn.open{background:linear-gradient(90deg,var(--accent),#5aa1ff);color:#061224}
+  .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:var(--glass);font-size:0.78rem;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+  .empty{color:var(--muted);padding:18px;border-radius:10px;background:rgba(255,255,255,0.02)}
+  footer{margin-top:28px;color:var(--muted);font-size:0.9rem}
+  /* modal preview */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.85));z-index:40;padding:24px}
+  .modal.open{display:flex}
+  .modal .box{width:100%;max-width:1100px;height:85vh;background:var(--card);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,0.03)}
+  .modal .toolbar{display:flex;align-items:center;padding:10px 12px;gap:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+  .modal .iframe{flex:1;border:0}
+  .close{margin-left:auto;background:transparent;border:0;color:var(--muted);cursor:pointer;font-weight:700}
+  @media (max-width:640px){
+    header{flex-direction:column;align-items:flex-start;gap:8px}
+    .topbar{margin-left:0;width:100%;justify-content:space-between}
+  }
 </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>webDandD</h1>
+    <p class="lead">Daily Web Development practice — click any day to preview the day's `index.html` live.</p>
+  </div>
 
-<h1>webDandD — Daily Work</h1>
-<div class="controls">
-  <label>Repo owner: <input id="owner" value="" placeholder="your-github-username"></label>
-  <label>Repo: <input id="repo" value="webDandD"></label>
-  <label>Branch: <input id="branch" value="main"></label>
-  <button id="load">Load</button>
-  <div style="flex:1"></div>
-  <div class="notice">If a Day folder contains an <code>index.html</code>, it will open inside the preview.</div>
-</div>
+  <div class="topbar">
+    <input id="q" class="search" placeholder="Search days, e.g. Day 10 or CSS" />
+    <div class="controls">
+      <button id="refresh">Refresh</button>
+    </div>
+  </div>
+</header>
 
-<div id="listing" class="grid"></div>
-<hr />
-<div id="previewArea" style="display:none">
-  <h2 id="previewTitle">Preview</h2>
-  <iframe id="previewFrame" sandbox=""></iframe>
-  <div><a id="openRaw" class="small" target="_blank">Open raw in new tab</a></div>
+<main>
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty" style="display:none;margin-top:14px"></div>
+</main>
+
+<footer>
+  <span class="badge">Repo: taukir007 / webDandD</span>
+  <span style="margin-left:12px;color:var(--muted)">Automatically lists folders and previews `index.html` served by GitHub Pages.</span>
+</footer>
+
+<!-- Preview modal -->
+<div id="modal" class="modal" role="dialog" aria-hidden="true">
+  <div class="box">
+    <div class="toolbar">
+      <strong id="modalTitle">Preview</strong>
+      <button id="openRawBtn" class="close">Open raw</button>
+      <button id="closeBtn" class="close">✕</button>
+    </div>
+    <iframe id="previewFrame" class="iframe" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
+  </div>
 </div>
 
 <script>
-async function apiGET(url){
-  const res = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' }});
-  if(res.status === 403){ throw new Error('Rate limit or access denied.'); }
-  if(!res.ok) throw new Error('GitHub API error: ' + res.status);
+const OWNER = 'taukir007';
+const REPO = 'webDandD';
+const BRANCH = 'main'; // change if you use different
+const GRID = document.getElementById('grid');
+const EMPTY = document.getElementById('empty');
+const Q = document.getElementById('q');
+const REFRESH = document.getElementById('refresh');
+const MODAL = document.getElementById('modal');
+const PREVIEW = document.getElementById('previewFrame');
+const MODAL_TITLE = document.getElementById('modalTitle');
+const OPEN_RAW = document.getElementById('openRawBtn');
+const CLOSE = document.getElementById('closeBtn');
+
+async function ghApi(path){
+  const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path ? path : ''}?ref=${BRANCH}`;
+  const res = await fetch(url, {headers:{Accept:'application/vnd.github.v3+json'}});
+  if(!res.ok) throw new Error('GitHub API error ' + res.status);
   return res.json();
 }
 
-function mkEl(tag, attrs={}, txt=''){
-  const el = document.createElement(tag);
-  Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
-  if(txt) el.textContent = txt;
-  return el;
+function isDayFolder(name){
+  return /day\s*\d+/i.test(name); // matches "Day 1 - HTML", "day2", etc.
 }
 
-async function loadListing(owner, repo, branch){
-  const listingEl = document.getElementById('listing');
-  listingEl.innerHTML = 'Loading...';
+function escapeForUrl(s){ return encodeURIComponent(s).replace(/%20/g,'%20'); }
+
+async function build(){
+  GRID.innerHTML = '<div class="empty">Loading folders…</div>';
   try{
-    const rootUrl = `https://api.github.com/repos/${owner}/${repo}/contents?ref=${branch}`;
-    const root = await apiGET(rootUrl);
-    // keep only directories that look like Day 1, Day 2, etc. (adjust regex as needed)
-    const dayFolders = root.filter(item => item.type === 'dir' && /day\s*\d+/i.test(item.name))
-                         .sort((a,b)=>a.name.localeCompare(b.name, undefined,{numeric:true}));
-    if(dayFolders.length===0){
-      listingEl.innerHTML = '<div class="card">No Day folders found at repo root.</div>';
+    const root = await ghApi('');
+    const dirs = root.filter(i => i.type === 'dir' && isDayFolder(i.name))
+                    .sort((a,b) => {
+                      // numeric sort by first number found
+                      const na = (a.name.match(/\d+/)||[])[0]||0;
+                      const nb = (b.name.match(/\d+/)||[])[0]||0;
+                      return Number(na) - Number(nb) || a.name.localeCompare(b.name);
+                    });
+
+    if(dirs.length === 0){
+      GRID.innerHTML = '';
+      EMPTY.style.display = 'block';
+      EMPTY.textContent = 'No Day folders found. Create folders like "Day 1 - HTML" with an index.html inside.';
       return;
     }
-    listingEl.innerHTML = '';
-    for(const folder of dayFolders){
-      const card = mkEl('div',{class:'card'});
-      const title = mkEl('div',{}, folder.name);
-      card.appendChild(title);
-      // check for index.html
-      const path = encodeURIComponent(folder.path);
-      const idxUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}/index.html?ref=${branch}`;
+
+    const cards = await Promise.all(dirs.map(async d => {
+      // check if index exists
       let hasIndex = false;
       try{
-        const idx = await apiGET(idxUrl);
+        const idx = await ghApi(d.path + '/index.html');
         if(idx && idx.type === 'file') hasIndex = true;
-      }catch(e){ /* index not found - fine */ }
-      const btn = mkEl('button',{}, hasIndex ? 'Preview index.html' : 'View files on GitHub');
-      btn.onclick = () => {
-        if(hasIndex){
-          const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder.path}/index.html`;
-          showPreview(folder.name, raw);
-        } else {
-          const githubFolder = `https://github.com/${owner}/${repo}/tree/${branch}/${folder.path}`;
-          window.open(githubFolder,'_blank');
-        }
-      };
-      card.appendChild(btn);
-      listingEl.appendChild(card);
-    }
+      }catch(e){ /* not found */ }
+
+      return {name:d.name, path:d.path, hasIndex};
+    }));
+
+    render(cards);
   }catch(err){
-    listingEl.innerHTML = `<div class="card">Error: ${err.message}</div>`;
+    GRID.innerHTML = '';
+    EMPTY.style.display = 'block';
+    EMPTY.textContent = 'Error loading repository: ' + err.message;
     console.error(err);
   }
 }
 
-function showPreview(title, rawUrl){
-  const area = document.getElementById('previewArea');
-  const frame = document.getElementById('previewFrame');
-  document.getElementById('previewTitle').textContent = title + ' — Preview';
-  document.getElementById('openRaw').href = rawUrl;
-  // NOTE: we intentionally do not set sandbox attributes so student scripts can run.
-  frame.src = rawUrl;
-  area.style.display = 'block';
+function render(items){
+  EMPTY.style.display = 'none';
+  GRID.innerHTML = '';
+  for(const it of items){
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = it.name;
+    card.appendChild(title);
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = it.hasIndex ? 'Live preview available' : 'No index.html (click to view files)';
+    card.appendChild(meta);
+
+    const btns = document.createElement('div');
+    btns.className = 'buttons';
+
+    // Preview / Open
+    const openBtn = document.createElement('button');
+    openBtn.className = 'btn open';
+    openBtn.textContent = it.hasIndex ? 'Preview' : 'Open on GitHub';
+    openBtn.onclick = () => {
+      if(it.hasIndex){
+        // preview via GitHub Pages URL for correct relative paths
+        const folderPath = it.path.split('/').map(encodeURIComponent).join('/');
+        const previewUrl = `https://${OWNER}.github.io/${REPO}/${folderPath}/`;
+        openPreview(it.name, previewUrl);
+      } else {
+        const githubFolder = `https://github.com/${OWNER}/${REPO}/tree/${BRANCH}/${it.path}`;
+        window.open(githubFolder, '_blank');
+      }
+    };
+    btns.appendChild(openBtn);
+
+    // View source (always)
+    const srcBtn = document.createElement('button');
+    srcBtn.className = 'btn preview';
+    srcBtn.textContent = 'View Source';
+    srcBtn.onclick = () => {
+      const raw = `https://github.com/${OWNER}/${REPO}/tree/${BRANCH}/${it.path}`;
+      window.open(raw, '_blank');
+    };
+    btns.appendChild(srcBtn);
+
+    card.appendChild(btns);
+    GRID.appendChild(card);
+  }
+
+  // attach search filtering
+  Q.oninput = (e) => {
+    const q = (e.target.value || '').toLowerCase().trim();
+    Array.from(GRID.children).forEach(card => {
+      const t = card.querySelector('.title').textContent.toLowerCase();
+      card.style.display = t.includes(q) ? '' : 'none';
+    });
+    // show empty message if none visible
+    const any = Array.from(GRID.children).some(c => c.style.display !== 'none');
+    if(!any){
+      EMPTY.style.display = 'block';
+      EMPTY.textContent = 'No results match your search.';
+    } else {
+      EMPTY.style.display = 'none';
+    }
+  };
 }
 
-document.getElementById('load').addEventListener('click', ()=>{
-  const owner = document.getElementById('owner').value.trim() || prompt('Enter owner (GitHub username or org):');
-  const repo = document.getElementById('repo').value.trim();
-  const branch = document.getElementById('branch').value.trim() || 'main';
-  if(!owner || !repo) return alert('owner and repo required');
-  // persist owner to the input
-  document.getElementById('owner').value = owner;
-  loadListing(owner, repo, branch);
+function openPreview(title, url){
+  MODAL.classList.add('open');
+  MODAL.setAttribute('aria-hidden','false');
+  MODAL_TITLE.textContent = title + ' — Live Preview';
+  PREVIEW.src = url;
+  OPEN_RAW.onclick = () => window.open(url,'_blank');
+}
+
+function closePreview(){
+  MODAL.classList.remove('open');
+  MODAL.setAttribute('aria-hidden','true');
+  PREVIEW.src = 'about:blank';
+}
+
+CLOSE.onclick = closePreview;
+REFRESH.onclick = build;
+MODAL.addEventListener('click', (e) => {
+  if(e.target === MODAL) closePreview();
 });
 
-// quick auto-load if values present (useful after you replace defaults)
-window.addEventListener('load', ()=> {
-  const owner = document.getElementById('owner').value.trim();
-  const repo = document.getElementById('repo').value.trim();
-  if(owner && repo) loadListing(owner, repo, document.getElementById('branch').value.trim()||'main');
-});
+// initial load
+build();
 </script>
+</body>
+</html>
