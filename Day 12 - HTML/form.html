@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- Meta Section -->
+		<meta charset="UTF-8">
+		<meta name="description" content="HTML Form Example">
+		<meta name="keywords" content="HTML, CSS, JavaScript">
+		<meta name="author" content="Taukir Ahmed">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+	  <title> Form Page </title>
+	</head>
+	
+	<body>
+		<!-- Menu Section Start-->
+		<br><hr>
+		<div align="center">
+			<a href="index.html" style="padding: 20px;"> Home </a>
+			<a href="image.html" style="padding: 20px;"> Image </a>
+			<a href="form.html" style="padding: 20px;"> Form </a>
+		</div>
+		<hr><br> 
+		<!-- Menu Section End-->
+		
+		<!-- Form Section Start-->
+		
+		<form action="success.html" method="get" enctype="multipart/form-data" target="_blank">
+		   <fieldset>
+		   <legend><b> - Student Registration - </b></legend>
+		   <fieldset>
+		   <legend><b>  Personal Information :    </b></legend>
+		   <label> Student Name:  </label> <input name="studentName" required><br><br>
+		   <label> Student Class:  </label>
+		     <select name="studentClass" required>
+			   <option>One</option>
+			   <option>Two</option>
+			   <option>Three</option>
+			   <option>Four</option>
+			   <option>Five</option>
+			 </select><br><br>
+		   <label> Student Date of Birth:  </label> <input type="date" name="dob" required><br><br>
+		   <label> Student Gender:  </label> 
+		      <input type="radio" name="gender" value="male" required> Male
+			  <input type="radio" name="gender" value="female" required> Female
+			  <br><br>
+		   </fieldset>
+		   <fieldset>
+		   <legend><b>     Contact Information :    </b></legend>
+		   <label> Student E-Mail:  </label><input type="email" name="email" required><br><br>
+		   <label> Student Contact:  </label><input type="number" name="contact" required><br><br>
+		   <label> Student Address:  </label><textarea name="address" required></textarea><br><br>
+		   </fieldset>
+		   <fieldset>
+		   <legend><b> Profile Information : </b></legend>
+		   <label> Student Photo:  </label><input type="file"><br><br>
+		   <label> Student Signature:  </label><input type="file"><br><br>
+		   
+		   <label> Student Username:  </label></label><input type="text" name="username" ><br><br>
+		   <label> Student Password:  </label></label><input type="password" name="password" required><br><br>
+		   
+		   </fieldset><br>
+		   <button type="submit"> Submit </button>
+		  </fieldset> 
+		</form>
+		
+		
+
+	</body>
+	
+</html>

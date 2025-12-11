@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submission Successful</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+
+    h1 {
+        text-align: center;
+        color: #28a745;
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
+
+    .data-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 15px;
+        margin-bottom: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .data-row span {
+        font-weight: 500;
+    }
+
+    .label {
+        color: #495057;
+    }
+
+    .value {
+        color: #212529;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 14px;
+        color: #6c757d;
+    }
+	.btn {
+		align:center;
+		display: inline-block;
+		padding: 12px 25px;
+		margin-top: 20px;
+		font-size: 16px;
+		font-weight: 600;
+		color: #fff;
+		background-color: #007bff;
+		border: none;
+		border-radius: 8px;
+		text-decoration: none;
+		text-align: center;
+		transition: all 0.3s ease;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		cursor: pointer;
+	}
+
+	.btn:hover {
+		background-color: #0056b3;
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+	}
+
+	.btn:active {
+		transform: translateY(0);
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	}
+	.button-container {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Successfully Submitted!</h1>
+
+    <div class="data-row"><span class="label">Name:</span> <span class="value" id="name"></span></div>
+    <div class="data-row"><span class="label">Class:</span> <span class="value" id="class"></span></div>
+    <div class="data-row"><span class="label">Date of Birth:</span> <span class="value" id="dob"></span></div>
+    <div class="data-row"><span class="label">Gender:</span> <span class="value" id="gender"></span></div>
+    <div class="data-row"><span class="label">Email:</span> <span class="value" id="email"></span></div>
+    <div class="data-row"><span class="label">Contact:</span> <span class="value" id="contact"></span></div>
+    <div class="data-row"><span class="label">Address:</span> <span class="value" id="address"></span></div>
+    <div class="data-row"><span class="label">Username:</span> <span class="value" id="username"></span></div>
+
+    <div class="footer">Thank you for registering!</div>
+	<div class="button-container">
+       <a href="form.html" class="btn">Go Back!</a>
+	</div>
+</div>
+
+<script>
+    // Fetch all URL parameters
+    const params = new URLSearchParams(window.location.search);
+
+    document.getElementById("name").textContent = params.get("studentName") || "N/A";
+    document.getElementById("class").textContent = params.get("studentClass") || "N/A";
+    document.getElementById("dob").textContent = params.get("dob") || "N/A";
+    document.getElementById("gender").textContent = params.get("gender") || "N/A";
+    document.getElementById("email").textContent = params.get("email") || "N/A";
+    document.getElementById("contact").textContent = params.get("contact") || "N/A";
+    document.getElementById("address").textContent = params.get("address") || "N/A";
+    document.getElementById("username").textContent = params.get("username") || "N/A";
+</script>
+
+</body>
+</html>
