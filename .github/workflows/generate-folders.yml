@@ -1,0 +1,49 @@
+name: Generate folders.json for webDandD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (for JSON formatting)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Generate folders JSON
+        run: |
+          mkdir -p data
+          echo "Scanning folders..."
+          python3 - <<'PY'
+import os, json
+root = os.getcwd()
+items = []
+for name in sorted(os.listdir(root)):
+    path = os.path.join(root, name)
+    if not os.path.isdir(path): 
+        continue
+    # skip workflow and data folders
+    if name.startswith('.git') or name == '.github' or name == 'data':
+        continue
+    # treat only Day* folders OR include all folders - we include all directories but you can filter
+    # if you want only Day-named folders uncomment next lines:
+    # import re
+    # if not re.search(r'day\s*\d+', name, re.I): continue
+    index_html = os.path.isfile(os.path.join(path, 'index.html'))
+    items.append({"name": name, "path": name, "index": index_html})
+with open('data/folders.json', 'w', encoding='utf-8') as f:
+    json.dump(items, f, ensure_ascii=False, indent=2)
+print("Wrote data/folders.json with %d entries" % len(items))
+PY
+
+      - name: Commit data/folders.json
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: update data/folders.json"
+          add: "data/folders.json"
