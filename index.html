@@ -1,0 +1,121 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>webDandD — Daily HTML/CSS Progress</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;padding:24px;background:#f7fafc}
+  h1{margin:0 0 16px}
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  .card button{margin-top:8px}
+  iframe{width:100%;height:80vh;border:1px solid #ddd;border-radius:6px}
+  .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+  .notice{color:#555;font-size:0.95rem}
+  a.small{font-size:0.9rem;color:#0366d6}
+</style>
+
+<h1>webDandD — Daily Work</h1>
+<div class="controls">
+  <label>Repo owner: <input id="owner" value="" placeholder="your-github-username"></label>
+  <label>Repo: <input id="repo" value="webDandD"></label>
+  <label>Branch: <input id="branch" value="main"></label>
+  <button id="load">Load</button>
+  <div style="flex:1"></div>
+  <div class="notice">If a Day folder contains an <code>index.html</code>, it will open inside the preview.</div>
+</div>
+
+<div id="listing" class="grid"></div>
+<hr />
+<div id="previewArea" style="display:none">
+  <h2 id="previewTitle">Preview</h2>
+  <iframe id="previewFrame" sandbox=""></iframe>
+  <div><a id="openRaw" class="small" target="_blank">Open raw in new tab</a></div>
+</div>
+
+<script>
+async function apiGET(url){
+  const res = await fetch(url, { headers: { Accept: 'application/vnd.github.v3+json' }});
+  if(res.status === 403){ throw new Error('Rate limit or access denied.'); }
+  if(!res.ok) throw new Error('GitHub API error: ' + res.status);
+  return res.json();
+}
+
+function mkEl(tag, attrs={}, txt=''){
+  const el = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
+  if(txt) el.textContent = txt;
+  return el;
+}
+
+async function loadListing(owner, repo, branch){
+  const listingEl = document.getElementById('listing');
+  listingEl.innerHTML = 'Loading...';
+  try{
+    const rootUrl = `https://api.github.com/repos/${owner}/${repo}/contents?ref=${branch}`;
+    const root = await apiGET(rootUrl);
+    // keep only directories that look like Day 1, Day 2, etc. (adjust regex as needed)
+    const dayFolders = root.filter(item => item.type === 'dir' && /day\s*\d+/i.test(item.name))
+                         .sort((a,b)=>a.name.localeCompare(b.name, undefined,{numeric:true}));
+    if(dayFolders.length===0){
+      listingEl.innerHTML = '<div class="card">No Day folders found at repo root.</div>';
+      return;
+    }
+    listingEl.innerHTML = '';
+    for(const folder of dayFolders){
+      const card = mkEl('div',{class:'card'});
+      const title = mkEl('div',{}, folder.name);
+      card.appendChild(title);
+      // check for index.html
+      const path = encodeURIComponent(folder.path);
+      const idxUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}/index.html?ref=${branch}`;
+      let hasIndex = false;
+      try{
+        const idx = await apiGET(idxUrl);
+        if(idx && idx.type === 'file') hasIndex = true;
+      }catch(e){ /* index not found - fine */ }
+      const btn = mkEl('button',{}, hasIndex ? 'Preview index.html' : 'View files on GitHub');
+      btn.onclick = () => {
+        if(hasIndex){
+          const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder.path}/index.html`;
+          showPreview(folder.name, raw);
+        } else {
+          const githubFolder = `https://github.com/${owner}/${repo}/tree/${branch}/${folder.path}`;
+          window.open(githubFolder,'_blank');
+        }
+      };
+      card.appendChild(btn);
+      listingEl.appendChild(card);
+    }
+  }catch(err){
+    listingEl.innerHTML = `<div class="card">Error: ${err.message}</div>`;
+    console.error(err);
+  }
+}
+
+function showPreview(title, rawUrl){
+  const area = document.getElementById('previewArea');
+  const frame = document.getElementById('previewFrame');
+  document.getElementById('previewTitle').textContent = title + ' — Preview';
+  document.getElementById('openRaw').href = rawUrl;
+  // NOTE: we intentionally do not set sandbox attributes so student scripts can run.
+  frame.src = rawUrl;
+  area.style.display = 'block';
+}
+
+document.getElementById('load').addEventListener('click', ()=>{
+  const owner = document.getElementById('owner').value.trim() || prompt('Enter owner (GitHub username or org):');
+  const repo = document.getElementById('repo').value.trim();
+  const branch = document.getElementById('branch').value.trim() || 'main';
+  if(!owner || !repo) return alert('owner and repo required');
+  // persist owner to the input
+  document.getElementById('owner').value = owner;
+  loadListing(owner, repo, branch);
+});
+
+// quick auto-load if values present (useful after you replace defaults)
+window.addEventListener('load', ()=> {
+  const owner = document.getElementById('owner').value.trim();
+  const repo = document.getElementById('repo').value.trim();
+  if(owner && repo) loadListing(owner, repo, document.getElementById('branch').value.trim()||'main');
+});
+</script>
