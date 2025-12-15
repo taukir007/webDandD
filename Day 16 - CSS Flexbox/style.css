@@ -1,0 +1,40 @@
+/* Removing Default Style */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* Container Style */
+.container {
+  width: 90vw;
+  border: 1px solid red;
+  margin: 50px auto 0px;
+}
+
+/* Row Style */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Box Style */
+.box1 {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid blue;
+  width: 25%;
+}
+.box1 a {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+
+.box1 a:hover {
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: red;
+}

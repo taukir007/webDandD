@@ -1,0 +1,29 @@
+h1 {
+  color: red;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 60px;
+  text-decoration: overline;
+}
+.test {
+  color: blue;
+  text-transform: uppercase;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border: 5px dotted red;
+  width: 50vw;
+  margin-left: 25vw;
+  text-align: center;
+  height: 100px;
+
+  padding-top: 25px;
+  box-sizing: border-box;
+}
+.para {
+  font-size: 25px;
+  font-family: sofia;
+  color: rgb(204, 0, 255);
+}
+/* Assign Background */
+* {
+  background-color: yellow;
+}
