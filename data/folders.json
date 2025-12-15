@@ -24,6 +24,18 @@
     "description": ""
   },
   {
+    "name": "Day 15 - CSS Basic",
+    "path": "Day 15 - CSS Basic",
+    "index": true,
+    "description": ""
+  },
+  {
+    "name": "Day 16 - CSS Flexbox",
+    "path": "Day 16 - CSS Flexbox",
+    "index": true,
+    "description": ""
+  },
+  {
     "name": "Day 2 - MS Word",
     "path": "Day 2 - MS Word",
     "index": false,
