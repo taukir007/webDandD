@@ -1,0 +1,88 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.header-section {
+  height: 100vh;
+  background: #f6677c;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.header-container {
+  width: 1140px;
+  margin: auto;
+  height: 90vh;
+  align-content: center;
+}
+
+.header-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header-col1 {
+  width: 50%;
+  align-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.header-col2 {
+  width: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.header-col2 img {
+  width: 100%;
+}
+
+.header-col1 h1 {
+  font-size: 45px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.header-col1 p {
+  font-size: 17px;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.appstore {
+  background: #ffffff;
+  color: #f6677c;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.appstore:hover {
+  background: black;
+  color: #ffffff;
+  border: 2px solid black;
+}
+
+.playstore {
+  color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.playstore:hover {
+  background: #ffffff;
+  color: #f6677c;
+}

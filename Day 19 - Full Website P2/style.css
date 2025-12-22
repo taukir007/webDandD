@@ -1,0 +1,106 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* Feature Section Start */
+
+.feature-section {
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+.feature-container {
+  width: 80vw;
+  margin: auto;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+/* Feature Title Section */
+.feature-title {
+  width: 37vw;
+  margin: auto;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.feature-title h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #ff6b81;
+  text-transform: uppercase;
+}
+
+.feature-title h2 {
+  font-size: 34px;
+  margin-bottom: 25px;
+  line-height: 42px;
+  text-transform: capitalize;
+  position: relative;
+  font-weight: 800;
+}
+
+.feature-title p {
+  font-size: 15px;
+}
+
+/* Main Features Sections */
+.feature-row {
+  /* width: 900px; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.feature-col {
+  width: 30%;
+  background-color: #ffffff;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.feature-box {
+  padding: 30px;
+}
+
+.feature-box h3 {
+  margin-bottom: 16px;
+}
+.feature-box p {
+  text-align: justify;
+}
+
+/* Optional Button */
+.full-width-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+
+  color: #ffffff !important; /* force text color */
+
+  text-decoration: none;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+
+  border: 2px solid #0056b3;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.full-width-btn:hover {
+  background: red;
+  color: #ffffff;
+}
+a {
+  color: Black;
+}
+a:hover {
+  color: white;
+}
