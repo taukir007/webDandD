@@ -1,0 +1,156 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================================ */
+/* Footer Section Start */
+/* ================================ */
+.footer-section {
+  min-height: 70vh;
+  background-color: #081828;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.footer-container {
+  width: 70vw;
+  margin: auto;
+}
+
+.footer-container a,
+li {
+  text-decoration: none;
+  list-style-type: none;
+  color: #ffffff;
+}
+/* Main Footer Top Sections */
+.footer-row1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.footer-col1top {
+  width: 25%;
+  padding: 10px;
+  color: #ffffff;
+}
+.footer-top-title h1,
+p {
+  padding-bottom: 25px;
+}
+.copyright-text {
+  padding-top: 30px;
+}
+.social {
+  display: flex;
+}
+.social li {
+  padding-right: 15px;
+}
+
+/* Footer Top Section Column Style */
+.footer-col1 {
+  width: 18%;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.footer-col1 h3 {
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+.footer-col1 li {
+  padding-bottom: 12px;
+}
+
+.footer-row2 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  justify-content: space-evenly;
+  border: 1px solid #757373ab;
+  border-radius: 10px;
+  padding: 15px;
+  align-items: center;
+  color: #ffffff;
+  gap: 30px;
+}
+
+.footer-col21 {
+  align-items: center;
+  padding-top: 10px;
+}
+.footer-col21 h3 {
+  padding-bottom: 10px;
+}
+.footer-col22 {
+  width: 50%;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-input {
+  padding: 15px 10px;
+  background-color: #59626b;
+  border-radius: 5px;
+}
+.footer-input::placeholder {
+  color: white;
+}
+.btn {
+  padding: 15px 30px;
+  background-color: #ff6b81;
+  color: white;
+  border-radius: 5px;
+}
+
+/*  */
+/*  */
+/*  */
+/* ================================ */
+/* Optional Button */
+/* ================================ */
+.glass-btn-sticky {
+  /* Positioning Logic */
+  position: fixed; /* Fixes it to the screen */
+  bottom: 0; /* Sticks it to the bottom */
+  left: 0; /* Aligns to the left edge */
+  width: 100%; /* Full width */
+  z-index: 9999; /* Ensures it stays on top of other content */
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px; /* Taller padding for a "bar" feel */
+
+  /* Glassmorphism Styles */
+  background: rgba(15, 23, 42, 0.8); /* Darker base for white text visibility */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  color: #ffffff !important;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  /* Animation */
+  transition: all 0.3s ease;
+}
+
+.glass-btn-sticky:hover {
+  background: rgba(30, 41, 59, 0.9);
+  padding-bottom: 25px; /* Slight expansion on hover */
+}
+
+.glass-btn-sticky i {
+  font-size: 1.2rem;
+}
