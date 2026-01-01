@@ -1,0 +1,213 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================================ */
+/* About Section Start */
+/* ================================ */
+
+.about-section {
+  min-height: 70vh;
+  background-color: #fff;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.about-container {
+  width: 80vw;
+  margin: auto;
+}
+.about-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+/* Assigning size of 2 Column */
+.about-col1 {
+  width: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.about-col2 {
+  width: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Column 1 work start */
+.about-col1-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.about-col1-row-col1 {
+  width: 50%;
+  padding-right: 10px;
+}
+.about-col1-row-col1 img {
+  width: 100%;
+  height: 100%;
+}
+.about-col1-row-col2 {
+  padding-left: 10px;
+  width: 50%;
+}
+.about-col1-row-col2 img {
+  height: auto;
+  width: 100%;
+}
+
+/* Column 2 work Start */
+.about-col2-title {
+  height: 40%;
+}
+
+.about-col2-title h2 {
+  color: #f1c152;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding-bottom: 16px;
+}
+.about-col2-title h1 {
+  font-size: 54px;
+  padding-bottom: 24px;
+}
+.about-col2-title p {
+  font-size: 16px;
+  padding-bottom: 24px;
+  color: #737373;
+}
+
+.about-col2-row1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 20%;
+  padding-bottom: 24px;
+}
+.about-col2-row1-col {
+  width: 50%;
+}
+
+.about-col2-row1-col-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.about-col2-row1-col-box i {
+  font-size: 60px;
+  width: 30%;
+}
+
+.about-col2-vision {
+  width: 70%;
+}
+
+.about-col2-vision p {
+  font-size: 16px;
+  padding-bottom: 24px;
+  color: #737373;
+}
+
+.about-col2-row2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 20%;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.about-col2-row2-img {
+  width: 20%;
+  height: 100%;
+}
+.about-col2-row2-img img {
+  border-radius: 100px;
+  width: 90%;
+  height: auto;
+}
+
+.about-col2-row2 p {
+  width: 50%;
+  font-size: 16px;
+}
+
+.col2-rised h2 {
+  color: #f1c152;
+  font-size: 32px;
+  text-align: center;
+}
+.col2-rised h5 {
+  color: #0d0d0d;
+  font-size: 20px;
+  text-align: center;
+}
+
+.about-col2-row3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  height: 20%;
+}
+
+.about-col2-row3-col {
+  width: 50%;
+}
+
+.about-col2-row3-col li {
+  list-style: none;
+}
+
+/*  */
+/*  */
+/*  */
+/* ================================ */
+/* Optional Button */
+/* ================================ */
+.glass-btn-sticky {
+  /* Positioning Logic */
+  position: fixed; /* Fixes it to the screen */
+  bottom: 0; /* Sticks it to the bottom */
+  left: 0; /* Aligns to the left edge */
+  width: 100%; /* Full width */
+  z-index: 9999; /* Ensures it stays on top of other content */
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px; /* Taller padding for a "bar" feel */
+
+  /* Glassmorphism Styles */
+  background: rgba(15, 23, 42, 0.8); /* Darker base for white text visibility */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  color: #ffffff !important;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  /* Animation */
+  transition: all 0.3s ease;
+}
+
+.glass-btn-sticky:hover {
+  background: rgba(30, 41, 59, 0.9);
+  padding-bottom: 25px; /* Slight expansion on hover */
+}
+
+.glass-btn-sticky i {
+  font-size: 1.2rem;
+}
