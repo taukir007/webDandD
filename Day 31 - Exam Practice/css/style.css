@@ -1,0 +1,48 @@
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  background: #000000;
+}
+.header-fixed {
+  box-shadow: 0 12px 15px rgba(140, 152, 164, 0.1);
+  background: #fff;
+}
+.navbar-brand {
+  color: white;
+  font-weight: 700;
+  font-size: 28px;
+}
+.navbar-nav {
+  width: 100%;
+  justify-content: flex-end;
+}
+.navbar-nav li {
+  padding-left: 25px;
+}
+.navbar-nav li a {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+.logoimg {
+  height: 50px;
+  width: 50px;
+}
+
+.intro h2 {
+  text-align: center;
+}
+
+.navbar-toggler {
+  box-shadow: none !important;
+  border: 1px solid #b3b3b3;
+  padding: 6px 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+}
