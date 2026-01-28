@@ -1,0 +1,42 @@
+.icon-box {
+  border: 1px solid black;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1; /* keeps it perfectly round */
+}
+
+.broken-strip {
+  display: flex;
+  gap: 8px; /* space between segments */
+  margin: 15px 0;
+}
+
+.broken-strip .line {
+  height: 5px;
+  background-color: green;
+  border-radius: 3px;
+}
+
+.broken-strip .long {
+  width: 40px;
+}
+
+.broken-strip .medium {
+  width: 20px;
+}
+
+.broken-strip .short {
+  width: 10px;
+}
+
+.line {
+  animation: grow 0.6s ease forwards;
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
