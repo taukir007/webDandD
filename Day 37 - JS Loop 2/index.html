@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Runner Pro | Taukir</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div style="font-weight: 800; font-size: 1.1rem; color: var(--accent);">JS Runner Pro | Taukir</div>
+        <div class="input-group">
+            <button class="btn btn-run" onclick="window.location.href='index2.html'">Index 2</button>
+            <input type="text" id="jsFile" placeholder="e.g. script1.js">
+            <button class="btn btn-run" onclick="loadJS()">Run Script</button>
+            <button class="btn btn-clear" onclick="clearAll()">Clear</button>
+
+        </div>
+    </header>
+
+    <main class="workspace">
+        <div class="pane">
+            <div class="pane-header">System Console</div>
+            <div id="terminal">
+                <div class="log-item"><span class="timestamp">[INIT]</span> Ready for input...</div>
+            </div>
+
+            <div class="pane-header" style="border-top: 1px solid var(--border);">Quick Access Files</div>
+            <div id="file-list">
+            </div>
+        </div>
+
+        <div class="pane" style="border-right: none;">
+            <div class="pane-header">Live Output</div>
+            <div id="show">
+                <em style="color:#444">Execute a script to see content here.</em>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Developed by <strong>Taukir</strong> |
+        <a href="https://github.com/taukir001" target="_blank">github.com/taukir007</a>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
