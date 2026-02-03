@@ -1,0 +1,30 @@
+/* Header */
+.portfolio-header {
+    height: 250px;
+    background: linear-gradient(45deg, #2c3e50, #000000);
+}
+
+/* Navbar */
+.navbar-brand { font-weight: 700; font-size: 28px; }
+.logoimg { height: 45px; width: 45px; margin-right: 10px; }
+.nav-link:hover { color: #ff6600 !important; transition: 0.3s; }
+
+/* Progress Bars */
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+/* Card Transitions */
+.card {
+    transition: 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Modal Images */
+.modal-body img {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

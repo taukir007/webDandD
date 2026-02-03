@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Taukir</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+</head>
+
+<body>
+
+    <nav class="navbar sticky-top navbar-expand-md navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="img/profile.png" alt="" class="logoimg"> Taukir</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link active fw-bold" href="portfolio.html">Portfolio</a>
+                    <a class="nav-link" href="service.html">Service</a>
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="portfolio-header text-center text-white d-flex align-items-center justify-content-center">
+        <h1 class="display-4 fw-bold">My Portfolio & Resume</h1>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm border-0 bg-light p-4">
+                        <h3 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-user-tie me-2"></i> Personal Info
+                        </h3>
+                        <ul class="list-unstyled lh-lg">
+                            <li><strong>Full Name:</strong> Taukir Ahmed</li>
+                            <li><strong>Nationality:</strong> Bangladeshi</li>
+                            <li><strong>Language:</strong> English, Bengali, Hindi</li>
+                            <li><strong>Freelance:</strong> Available</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm border-0 bg-light p-4">
+                        <h3 class="fw-bold mb-4 text-success"><i class="fa-solid fa-graduation-cap me-2"></i> Education
+                        </h3>
+                        <div class="mb-3">
+                            <h6>B.Sc in Computer Science & Engineering</h6>
+                            <small class="text-muted">National Institute of Technology Silchar | 2018 - 2022</small>
+                        </div>
+                        <div class="mb-3">
+                            <h6>HSC in Science</h6>
+                            <small class="text-muted">Govt. Azizul Haque College | 2015 - 2017</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-4">Special Skills</h3>
+                    <div class="mb-3">
+                        <label class="fw-bold">Web Development</label>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 90%">90%</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="fw-bold">UI/UX Design</label>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" style="width: 80%">80%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-4">Working Experience</h3>
+                    <div class="border-start border-3 border-primary ps-4 mb-4">
+                        <h5 class="fw-bold">Senior Web Developer</h5>
+                        <p class="mb-0 text-muted">NACTAR| 2022 - Present</p>
+                        <small>Leading the frontend team to build scalable ERP systems.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light text-center">
+        <div class="container">
+            <h3 class="fw-bold mb-4">Training & Certifications</h3>
+            <button type="button" class="btn btn-primary btn-lg px-5 shadow" data-bs-toggle="modal"
+                data-bs-target="#certModal">
+                View All Certificates
+            </button>
+        </div>
+    </section>
+
+    <div class="modal fade" id="certModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Professional Certifications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 text-center">
+                            <img src="img/slide (1).jpg" class="img-fluid rounded border mb-2" alt="Cert 1">
+                            <p class="fw-bold">Full Stack Web Development</p>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <img src="img/slide (2).jpg" class="img-fluid rounded border mb-2" alt="Cert 2">
+                            <p class="fw-bold">UI/UX Design Expert</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <p class="m-0">&copy; 2026 Taukir | <span id="datetime"></span></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+/* Header */
+.contact-header {
+    height: 250px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/slide\ \(1\).jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Navbar */
+.navbar-brand { font-weight: 700; font-size: 28px; }
+.logoimg { height: 45px; width: 45px; margin-right: 10px; }
+
+/* Form Controls */
+.form-control {
+    border-radius: 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ff6600;
+}
+
+/* Map */
+.map-section { line-height: 0; }

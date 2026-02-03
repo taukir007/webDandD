@@ -1,0 +1,50 @@
+/* Navigation */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 28px;
+}
+.logoimg {
+  height: 45px;
+  width: 45px;
+  margin-right: 10px;
+}
+.nav-link:hover {
+  color: #ff6600 !important;
+  transition: 0.3s;
+}
+
+/* Carousel */
+.carousel-item img {
+  height: 85vh;
+  object-fit: cover;
+}
+
+/* About Me */
+.aboutme {
+  background-color: #ffffff;
+}
+.abouttext {
+  text-align: justify;
+  line-height: 1.8;
+}
+
+/* Cards & Sections */
+.mvission {
+  background-color: #fff9f0;
+}
+.transition-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 15px;
+}
+.transition-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Footer Icons */
+footer i:hover {
+  color: #ff6600;
+  transition: 0.2s;
+}

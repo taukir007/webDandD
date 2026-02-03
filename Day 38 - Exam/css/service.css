@@ -1,0 +1,33 @@
+/* Header */
+.service-header {
+    height: 250px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+/* Navbar */
+.navbar-brand { font-weight: 700; font-size: 28px; }
+.logoimg { height: 45px; width: 45px; margin-right: 10px; }
+.nav-link:hover { color: #ff6600 !important; transition: 0.3s; }
+
+/* Service Cards */
+.service-card {
+    transition: 0.3s;
+    border-radius: 15px;
+}
+.service-card:hover {
+    transform: translateY(-10px);
+}
+.icon-box {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Accordion */
+.accordion-button:not(.collapsed) {
+    background-color: #2575fc;
+    color: white;
+}
